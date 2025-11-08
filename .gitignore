@@ -1,0 +1,21 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*~
+*.bak
+
+# Logs
+*.log
+
+# Optional: Uncomment if you want to keep photos private
+# photos/**/*
+# !photos/README.md
+

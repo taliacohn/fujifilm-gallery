@@ -1,0 +1,85 @@
+Initial commit: Fujifilm X-T3 Recipe Gallery
+
+Created a comprehensive web gallery application for organizing and showcasing 
+photos taken with different Fujifilm film simulation recipes on the X-T3.
+
+Features:
+- 📸 Recipe Gallery
+  * 37 pre-loaded film simulation recipes from various creators
+  * Search functionality to find recipes by name, film sim, or notes
+  * Filter system (All Recipes, Using Now, Tried, To Try)
+  * Responsive card-based layout
+  * Detailed recipe modal with all camera settings
+  * Photo management with captions, tags, and likes
+  * Like/unlike functionality with localStorage persistence
+  * Direct links to recipe creators for attribution
+
+- 📚 Instructions & Guide Page
+  * Step-by-step guide on setting recipes on X-T3
+  * Complete list of all 15 film simulations available on X-T3
+  * Detailed explanations of all recipe settings (Dynamic Range, Grain, 
+    Color Chrome Effect, White Balance, Highlight, Shadow, Color, 
+    Sharpness, Noise Reduction)
+  * Comprehensive Exposure Triangle guide (ISO, Shutter Speed, Aperture)
+  * Tips & tricks for X-T3 photography
+  * Scenario-based quick reference guides
+
+- 🎨 Modern UI/UX
+  * Clean, professional design with smooth animations
+  * Responsive layout (mobile, tablet, desktop)
+  * Intuitive navigation with tab system
+  * Accessible color scheme
+  * Hover effects and visual feedback
+  * Sticky navigation bar
+
+- 🗂️ Photo Organization
+  * Structured directory system (photos/[recipe-id]/)
+  * JSON-based recipe and photo metadata
+  * Tag system for organizing by lighting, subject, location
+  * Caption support for each photo
+  * Easy-to-update photo database
+
+- 🚀 Deployment Ready
+  * GitHub Pages compatible
+  * Local server support (Python, Node.js)
+  * Quick-start script for Mac (start-server.command)
+  * Comprehensive documentation (README.md, QUICK-START.md)
+  * .gitignore configured
+
+Tech Stack:
+- Pure HTML5, CSS3, JavaScript (no dependencies)
+- Mobile-first responsive design
+- LocalStorage for user preferences
+- JSON for data management
+- Modular, maintainable code structure
+
+File Structure:
+├── index.html              # Main application
+├── styles.css              # Complete styling (715 lines)
+├── script.js               # Application logic with navigation
+├── recipes.json            # 37 recipes database
+├── photos/                 # Photo storage organized by recipe
+├── start-server.command    # Quick-start Mac script
+├── README.md               # Full documentation
+├── QUICK-START.md          # Getting started guide
+└── .gitignore              # Git configuration
+
+Recipes Included:
+- 7 recipes marked "Using Now" (Reggie's Portra, Kodachrome, Portra Hybrid, 
+  HP5 BW, Kodak Portra do Sol, Terracotta Sun, Mountains)
+- 30 recipes to try (including McCurry KodaChrome, Leica M10 BW, 
+  Vibrant Arizona, Cinestill 500T/800T, Absolute Portra, and many more)
+- All recipes include full settings and credit links
+
+Credits:
+All recipes credited to their original creators with direct links including:
+- FujiX Weekly (Ritchie Roesch)
+- Film Recipes
+- Ross and His JPEGs
+- Jamie Chance Travels
+- Various YouTube and TikTok creators
+- And more photography community contributors
+
+This gallery serves as both a recipe reference and photo organization tool,
+perfect for photographers exploring film simulation recipes on the Fujifilm X-T3.
+

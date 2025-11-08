@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fujifilm X-T3 Recipe Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📷 Fujifilm X-T3 Recipe Gallery</h1>
+            <p class="subtitle">Exploring film simulation recipes on my X-T3</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-page="gallery">Gallery</button>
+                <button class="nav-tab" data-page="instructions">Instructions & Guide</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Gallery Page -->
+        <div id="galleryPage" class="page-content active">
+            <!-- Filter & Search -->
+            <div class="controls">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search recipes...">
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Recipes</button>
+                <button class="filter-btn" data-filter="usingNow">Using Now</button>
+                <button class="filter-btn" data-filter="tried">Tried</button>
+                <button class="filter-btn" data-filter="untried">To Try</button>
+            </div>
+            </div>
+
+            <!-- Recipe Grid -->
+            <div id="recipeGrid" class="recipe-grid">
+                <!-- Recipes will be loaded here by JavaScript -->
+            </div>
+
+            <!-- Recipe Detail Modal -->
+            <div id="recipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="modalBody">
+                        <!-- Recipe details will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Page -->
+        <div id="instructionsPage" class="page-content">
+            <div class="instructions-container">
+                <h2>Fujifilm X-T3 Guide</h2>
+                
+                <div class="instruction-sections">
+                    <!-- How to Set Recipes -->
+                    <section class="instruction-section">
+                        <h3>📝 How to Set Film Simulation Recipes on Your X-T3</h3>
+                        <div class="instruction-content">
+                            <h4>Method 1: Using Custom Settings (C1-C7)</h4>
+                            <ol>
+                                <li><strong>Go to MENU</strong> → <strong>SHOOTING SETTING</strong> → <strong>EDIT/SAVE CUSTOM SETTING</strong></li>
+                                <li>Select one of the custom slots (C1-C7)</li>
+                                <li>Adjust all the settings below for your recipe</li>
+                                <li>Save the settings to that custom slot</li>
+                                <li>Switch to it anytime using the <strong>top dial</strong> (rotate to C1-C7)</li>
+                            </ol>
+
+                            <h4>Method 2: Quick Setup Without Saving</h4>
+                            <ol>
+                                <li>Press <strong>Q</strong> button for Quick Menu</li>
+                                <li>Navigate to each setting and adjust:
+                                    <ul>
+                                        <li><strong>Film Simulation</strong></li>
+                                        <li><strong>Dynamic Range</strong></li>
+                                        <li><strong>White Balance</strong></li>
+                                        <li><strong>Highlight/Shadow</strong></li>
+                                        <li><strong>Color</strong></li>
+                                        <li><strong>Sharpness</strong></li>
+                                        <li><strong>Noise Reduction</strong></li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <div class="tip-box">
+                                <strong>💡 Pro Tip:</strong> Save your favorite recipes to C1-C7 so you can quickly switch between them while shooting!
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Film Simulations Available -->
+                    <section class="instruction-section">
+                        <h3>🎨 Film Simulations Available on X-T3</h3>
+                        <div class="instruction-content">
+                            <div class="film-sim-grid">
+                                <div class="film-sim-item">
+                                    <h4>Provia / Standard</h4>
+                                    <p>Natural, balanced colors. Great all-around choice for most situations.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Velvia / Vivid</h4>
+                                    <p>High saturation and contrast. Perfect for landscapes and nature.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Astia / Soft</h4>
+                                    <p>Softer colors, great for portraits and delicate scenes.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Classic Chrome</h4>
+                                    <p>Muted tones, reduced saturation. Documentary/street style.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Pro Neg. Hi</h4>
+                                    <p>Professional negative film look. Great for portraits.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Pro Neg. Std</h4>
+                                    <p>Similar to Pro Neg Hi but with more contrast.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Classic Neg.</h4>
+                                    <p>Warm tones, slightly faded look. Great for everyday photography.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Eterna</h4>
+                                    <p>Cinematic, flat colors. Designed for video but great for photos too.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Acros</h4>
+                                    <p>Black and white with rich tones and gradation.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Acros+Ye (Yellow Filter)</h4>
+                                    <p>B&W with yellow filter effect. Darkens blues, brightens skies.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Acros+R (Red Filter)</h4>
+                                    <p>B&W with red filter. Strong contrast, dramatic skies.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Acros+G (Green Filter)</h4>
+                                    <p>B&W with green filter. Great for portraits and foliage.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Monochrome</h4>
+                                    <p>Basic black and white conversion.</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Monochrome+Filters</h4>
+                                    <p>Same filter options as Acros (Ye/R/G).</p>
+                                </div>
+                                
+                                <div class="film-sim-item">
+                                    <h4>Sepia</h4>
+                                    <p>Warm brown tones for vintage look.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Recipe Settings Explained -->
+                    <section class="instruction-section">
+                        <h3>⚙️ Recipe Settings Explained</h3>
+                        <div class="instruction-content">
+                            <div class="setting-explanation">
+                                <h4>Dynamic Range</h4>
+                                <p><strong>Options:</strong> DR100, DR200, DR400, Auto</p>
+                                <p><strong>What it does:</strong> Preserves highlights and shadows. Higher values (DR400) prevent blown highlights in bright scenes but require higher ISO (minimum ISO 800 for DR400).</p>
+                                <p><strong>When to use:</strong> Use DR400 in high-contrast scenes (bright sky + dark foreground). DR100 for normal contrast.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Grain Effect</h4>
+                                <p><strong>Options:</strong> Off, Weak, Strong</p>
+                                <p><strong>What it does:</strong> Adds film-like grain texture to images.</p>
+                                <p><strong>When to use:</strong> Weak for subtle film look, Strong for vintage aesthetic.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Color Chrome Effect</h4>
+                                <p><strong>Options:</strong> Off, Weak, Strong</p>
+                                <p><strong>What it does:</strong> Deepens colors in highly saturated areas without affecting less saturated areas.</p>
+                                <p><strong>When to use:</strong> Strong for rich, deep colors (sunsets, flowers). Can make colors look "muddy" in some situations.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>White Balance</h4>
+                                <p><strong>Options:</strong> Auto, Daylight, Shade, Fluorescent, Incandescent, Kelvin (2500K-10000K), Custom R/B shifts</p>
+                                <p><strong>What it does:</strong> Sets color temperature. Red (+R) makes warmer, Blue (+B) makes cooler.</p>
+                                <p><strong>Common settings:</strong></p>
+                                <ul>
+                                    <li><strong>Daylight:</strong> 5200K - outdoor sunny scenes</li>
+                                    <li><strong>Shade:</strong> ~7000K - cooler, for shade</li>
+                                    <li><strong>3200K:</strong> Tungsten/indoor lights</li>
+                                    <li><strong>Custom R/B shifts:</strong> Fine-tune (e.g., "2R -4B" = +2 Red, -4 Blue)</li>
+                                </ul>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Highlight</h4>
+                                <p><strong>Range:</strong> -2 to +4</p>
+                                <p><strong>What it does:</strong> Adjusts brightness of highlights (bright areas).</p>
+                                <p><strong>When to use:</strong> Negative values (-2) soften highlights, positive values (+2) increase contrast.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Shadow</h4>
+                                <p><strong>Range:</strong> -2 to +4</p>
+                                <p><strong>What it does:</strong> Adjusts brightness of shadows (dark areas).</p>
+                                <p><strong>When to use:</strong> Positive values (+2) lift shadows, negative values deepen them.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Color</h4>
+                                <p><strong>Range:</strong> -4 to +4</p>
+                                <p><strong>What it does:</strong> Overall color saturation.</p>
+                                <p><strong>When to use:</strong> Negative values for muted/faded look, positive values for vibrant colors.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Sharpness</h4>
+                                <p><strong>Range:</strong> -4 to +4</p>
+                                <p><strong>What it does:</strong> Edge sharpness and detail.</p>
+                                <p><strong>When to use:</strong> Negative values (-2) for softer, film-like look. Positive for crisp details.</p>
+                            </div>
+
+                            <div class="setting-explanation">
+                                <h4>Noise Reduction</h4>
+                                <p><strong>Range:</strong> -4 to +4</p>
+                                <p><strong>What it does:</strong> Reduces noise in high ISO images.</p>
+                                <p><strong>When to use:</strong> -4 preserves grain/texture (film look), +4 smooths noise at high ISO.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Exposure Triangle -->
+                    <section class="instruction-section">
+                        <h3>📐 The Exposure Triangle</h3>
+                        <div class="instruction-content">
+                            <p class="intro-text">Three settings control your exposure. Adjusting one requires adjusting another to maintain the same brightness:</p>
+                            
+                            <div class="exposure-grid">
+                                <div class="exposure-item">
+                                    <h4>🔆 ISO (Sensitivity)</h4>
+                                    <p><strong>Range:</strong> 160-12800 (expandable to 80-51200)</p>
+                                    <p><strong>What it does:</strong> Sensor sensitivity to light</p>
+                                    <ul>
+                                        <li><strong>Low ISO (160-400):</strong> Clean, detailed images. Use in bright light.</li>
+                                        <li><strong>Medium ISO (800-3200):</strong> Good balance. Indoor/overcast.</li>
+                                        <li><strong>High ISO (6400+):</strong> More noise, but needed in dark conditions.</li>
+                                    </ul>
+                                    <p><strong>Trade-off:</strong> Higher ISO = more noise/grain</p>
+                                </div>
+
+                                <div class="exposure-item">
+                                    <h4>⏱️ Shutter Speed</h4>
+                                    <p><strong>Range:</strong> 30 seconds to 1/8000 sec</p>
+                                    <p><strong>What it does:</strong> How long sensor is exposed to light</p>
+                                    <ul>
+                                        <li><strong>Fast (1/500+):</strong> Freeze motion (sports, action)</li>
+                                        <li><strong>Medium (1/60-1/250):</strong> General photography</li>
+                                        <li><strong>Slow (1/60 or slower):</strong> Motion blur, need tripod</li>
+                                    </ul>
+                                    <p><strong>Trade-off:</strong> Slower shutter = more motion blur</p>
+                                    <p><strong>Rule of thumb:</strong> Keep shutter speed ≥ 1/focal length (e.g., 1/50 for 50mm lens)</p>
+                                </div>
+
+                                <div class="exposure-item">
+                                    <h4>⭕ Aperture (f-stop)</h4>
+                                    <p><strong>Range:</strong> Depends on lens (e.g., f/1.4 - f/16)</p>
+                                    <p><strong>What it does:</strong> Size of lens opening</p>
+                                    <ul>
+                                        <li><strong>Wide (f/1.4-f/2.8):</strong> More light, shallow depth of field (blurry background)</li>
+                                        <li><strong>Medium (f/4-f/8):</strong> Balanced sharpness</li>
+                                        <li><strong>Narrow (f/11-f/16):</strong> Less light, everything in focus (landscapes)</li>
+                                    </ul>
+                                    <p><strong>Trade-off:</strong> Wide aperture = shallow focus. Narrow = deeper focus.</p>
+                                    <p><strong>Remember:</strong> Smaller f-number = wider opening = more light!</p>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4>💡 Quick Reference</h4>
+                                <p><strong>For portraits:</strong> Low ISO (160-400), wide aperture (f/1.4-f/2.8), fast enough shutter (1/125+)</p>
+                                <p><strong>For landscapes:</strong> Low ISO (160-400), narrow aperture (f/8-f/16), tripod for slow shutter</p>
+                                <p><strong>For street/action:</strong> Auto ISO (up to 3200), fast shutter (1/500+), medium aperture (f/4-f/8)</p>
+                                <p><strong>For low light:</strong> High ISO (1600-6400), wide aperture (f/1.4-f/2.8), slow shutter (with stabilization)</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tips & Tricks -->
+                    <section class="instruction-section">
+                        <h3>✨ Tips & Tricks for X-T3</h3>
+                        <div class="instruction-content">
+                            <div class="tip-box">
+                                <h4>Shoot RAW+JPEG</h4>
+                                <p>Set to RAW+JPEG so you can experiment with recipes in-camera (JPEG) while keeping RAW files for editing flexibility.</p>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4>Use Film Simulation Bracketing</h4>
+                                <p>Set up bracketing to shoot 3 different film simulations with one press. Great for testing recipes!</p>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4>Preview Your Recipe</h4>
+                                <p>EVF/LCD shows you the recipe in real-time! What you see is what you get (for JPEG).</p>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4>Test Different Lighting</h4>
+                                <p>Same recipe can look very different in golden hour vs. midday. Use tags to track this!</p>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4>Start with Classic Chrome</h4>
+                                <p>Most recipes use Classic Chrome as a base. It's versatile and forgiving.</p>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4>Adjust White Balance First</h4>
+                                <p>White balance has the biggest impact on the recipe's look. Nail this first!</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made with ♡ for photography | Fujifilm X-T3</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
