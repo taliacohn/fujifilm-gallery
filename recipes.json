@@ -16,14 +16,7 @@
     "sharpness": "-2",
     "noiseReduction": "-4",
     "link": "https://fujixweekly.com/2022/06/11/fujifilm-x-trans-iv-film-simulation-recipe-reggies-portra/",
-    "photos": [
-      {
-        "filename": "dogs.jpg",
-        "caption": "Testing Reggie's Portra",
-        "tags": ["outdoor", "portrait"],
-        "liked": false
-      }
-    ]
+    "photos": []
   },
   {
     "id": "kodachrome",
@@ -80,7 +73,20 @@
     "sharpness": "1",
     "noiseReduction": "-1",
     "link": "https://www.youtube.com/watch?v=KW_flpf5Rh0",
-    "photos": []
+    "photos": [
+      {
+        "filename": "DSCF3022.JPG",
+        "caption": "Zach trying the camera",
+        "tags": ["indoor", "bw", "Talia"],
+        "liked": false
+      },
+      {
+        "filename": "DSCF3024.JPG",
+        "caption": "Indoor pic of Zach",
+        "tags": ["indoor", "bw", "Zach"],
+        "liked": false
+      }
+    ]
   },
   {
     "id": "kodak-portra-do-sol",
@@ -99,7 +105,20 @@
     "sharpness": "-2",
     "noiseReduction": "-4",
     "link": "https://fujifilmsimulations.com/project/kodak-portra-do-sol/",
-    "photos": []
+    "photos": [
+      {
+        "filename": "DSCF3025.JPG",
+        "caption": "Zach yawning - taken with WB at 5600K",
+        "tags": ["indoor", "couch", "yawn", "Zach"],
+        "liked": false
+      },
+      {
+        "filename": "DSCF3027.JPG",
+        "caption": "Zach yawning 2.0 - taken with WB at 5600K",
+        "tags": ["indoor", "couch", "yawn", "Zach"],
+        "liked": false
+      }
+    ]
   },
   {
     "id": "terracotta-sun",

@@ -2,6 +2,8 @@
 let recipes = [];
 let currentFilter = 'all';
 let currentSearch = '';
+let currentLightboxRecipe = null;
+let currentLightboxIndex = 0;
 
 // Load recipes on page load
 document.addEventListener('DOMContentLoaded', async () => {
@@ -62,6 +64,28 @@ function setupEventListeners() {
         const modal = document.getElementById('recipeModal');
         if (e.target === modal) {
             closeModal();
+        }
+    });
+
+    // Lightbox controls
+    document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    document.querySelector('.lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
+    document.querySelector('.lightbox-next').addEventListener('click', () => navigateLightbox(1));
+    
+    window.addEventListener('click', (e) => {
+        const lightbox = document.getElementById('photoLightbox');
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', (e) => {
+        const lightbox = document.getElementById('photoLightbox');
+        if (lightbox.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (e.key === 'Escape') closeLightbox();
         }
     });
 }
@@ -254,6 +278,17 @@ function showRecipeModal(recipe) {
         });
     });
 
+    // Add photo click listeners to open lightbox
+    modalBody.querySelectorAll('.photo-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Don't open lightbox if clicking the like button
+            if (e.target.classList.contains('like-button')) return;
+            
+            const photoIndex = parseInt(item.dataset.photoIndex);
+            openLightbox(recipe, photoIndex);
+        });
+    });
+
     modal.style.display = 'block';
 }
 
@@ -272,7 +307,7 @@ function createSettingItem(label, value) {
 function createPhotoItem(recipe, photo, index) {
     const likedClass = photo.liked ? 'liked' : '';
     return `
-        <div class="photo-item">
+        <div class="photo-item" data-photo-index="${index}">
             <img src="photos/${recipe.id}/${photo.filename}" alt="${photo.caption || recipe.name}">
             <button class="like-button ${likedClass}" 
                     data-recipe-id="${recipe.id}" 
@@ -316,10 +351,110 @@ function closeModal() {
     document.getElementById('recipeModal').style.display = 'none';
 }
 
-// Handle escape key to close modal
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeModal();
+// Open photo lightbox
+function openLightbox(recipe, photoIndex) {
+    currentLightboxRecipe = recipe;
+    currentLightboxIndex = photoIndex;
+    
+    updateLightboxContent();
+    
+    const lightbox = document.getElementById('photoLightbox');
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    // Setup lightbox like button
+    const likeBtn = document.getElementById('lightboxLikeBtn');
+    likeBtn.onclick = () => toggleLightboxLike();
+}
+
+// Update lightbox content
+function updateLightboxContent() {
+    if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+
+    const photo = currentLightboxRecipe.photos[currentLightboxIndex];
+    const totalPhotos = currentLightboxRecipe.photos.length;
+
+    // Update image
+    const img = document.getElementById('lightboxImage');
+    img.src = `photos/${currentLightboxRecipe.id}/${photo.filename}`;
+    img.alt = photo.caption || currentLightboxRecipe.name;
+
+    // Update caption
+    const caption = document.querySelector('.lightbox-caption');
+    caption.textContent = photo.caption || '';
+
+    // Update tags
+    const tagsContainer = document.querySelector('.lightbox-tags');
+    if (photo.tags && photo.tags.length > 0) {
+        tagsContainer.innerHTML = photo.tags.map(tag => 
+            `<span class="photo-tag">${tag}</span>`
+        ).join('');
+    } else {
+        tagsContainer.innerHTML = '';
     }
-});
+
+    // Update like button
+    const likeBtn = document.getElementById('lightboxLikeBtn');
+    const likeIcon = likeBtn.querySelector('.like-icon');
+    if (photo.liked) {
+        likeBtn.classList.add('liked');
+        likeIcon.textContent = '❤️';
+    } else {
+        likeBtn.classList.remove('liked');
+        likeIcon.textContent = '🤍';
+    }
+
+    // Update counter
+    const counter = document.querySelector('.lightbox-counter');
+    counter.textContent = `${currentLightboxIndex + 1} / ${totalPhotos}`;
+
+    // Show/hide navigation buttons
+    const prevBtn = document.querySelector('.lightbox-prev');
+    const nextBtn = document.querySelector('.lightbox-next');
+    prevBtn.style.display = currentLightboxIndex > 0 ? 'block' : 'none';
+    nextBtn.style.display = currentLightboxIndex < totalPhotos - 1 ? 'block' : 'none';
+}
+
+// Navigate lightbox
+function navigateLightbox(direction) {
+    if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+
+    const newIndex = currentLightboxIndex + direction;
+    if (newIndex >= 0 && newIndex < currentLightboxRecipe.photos.length) {
+        currentLightboxIndex = newIndex;
+        updateLightboxContent();
+    }
+}
+
+// Toggle like in lightbox
+function toggleLightboxLike() {
+    if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+
+    const photo = currentLightboxRecipe.photos[currentLightboxIndex];
+    photo.liked = !photo.liked;
+
+    // Save to localStorage
+    const likes = JSON.parse(localStorage.getItem('recipeLikes') || '{}');
+    const key = `${currentLightboxRecipe.id}-${photo.filename}`;
+    likes[key] = photo.liked;
+    localStorage.setItem('recipeLikes', JSON.stringify(likes));
+
+    // Update lightbox like button
+    updateLightboxContent();
+
+    // Refresh the recipe modal in the background
+    showRecipeModal(currentLightboxRecipe);
+
+    // Refresh grid to update counts
+    displayRecipes();
+}
+
+// Close lightbox
+function closeLightbox() {
+    const lightbox = document.getElementById('photoLightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+    currentLightboxRecipe = null;
+    currentLightboxIndex = 0;
+}
 

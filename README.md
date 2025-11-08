@@ -7,7 +7,9 @@ A beautiful, modern web gallery to showcase and organize photos taken with diffe
 - 🎨 **Modern, Responsive Design** - Works beautifully on desktop, tablet, and mobile
 - 🔍 **Search & Filter** - Find recipes by name, film simulation, or status
 - 📸 **Photo Management** - Organize photos by recipe with captions and tags
+- 🖼️ **Photo Lightbox** - Click photos to view full-size with prev/next navigation
 - ❤️ **Like System** - Mark your favorite photos (saved in browser)
+- ⌨️ **Keyboard Navigation** - Arrow keys to navigate photos, ESC to close
 - 🏷️ **Recipe Details** - View all settings: film sim, white balance, highlights, shadows, etc.
 - 🔗 **Credit Links** - Direct links to original recipe creators
 - 📊 **Organization** - Track which recipes you're using, have tried, or want to try
