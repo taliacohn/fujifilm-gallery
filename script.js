@@ -120,6 +120,9 @@ function displayRecipes() {
             case 'all':
                 passFilter = true;
                 break;
+            case 'withPhotos':
+                passFilter = recipe.photos && recipe.photos.length > 0;
+                break;
             case 'usingNow':
                 passFilter = recipe.usingNow;
                 break;
@@ -181,30 +184,11 @@ function createRecipeCard(recipe) {
             <div class="recipe-badges">
                 ${badges.join('')}
             </div>
-            <div class="recipe-info">
-                <div class="info-row">
-                    <span class="info-label">Film Sim</span>
-                    <span class="info-value">${recipe.filmSim}</span>
-                </div>
-                ${recipe.dynamicRange ? `
-                <div class="info-row">
-                    <span class="info-label">Dynamic Range</span>
-                    <span class="info-value">${recipe.dynamicRange}</span>
-                </div>
-                ` : ''}
-                ${recipe.whiteBalance ? `
-                <div class="info-row">
-                    <span class="info-label">White Balance</span>
-                    <span class="info-value">${recipe.whiteBalance}</span>
-                </div>
-                ` : ''}
+            <div class="recipe-info-minimal">
+                <span class="film-sim-badge">${recipe.filmSim}</span>
             </div>
-            <a href="${recipe.link}" target="_blank" class="recipe-link" onclick="event.stopPropagation();">
-                View Recipe Source →
-            </a>
             <div class="photo-count">
-                📸 ${photoCount} photo${photoCount !== 1 ? 's' : ''} 
-                ${likedCount > 0 ? `| ❤️ ${likedCount} liked` : ''}
+                📸 ${photoCount}${photoCount !== 1 ? '' : ''} ${likedCount > 0 ? `• ❤️ ${likedCount}` : ''}
             </div>
         </div>
     `;
