@@ -489,6 +489,147 @@ footer {
     }
 }
 
+/* All Photos Page */
+.all-photos-container {
+    padding: 2rem 0;
+}
+
+.all-photos-container > h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.all-photos-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.photo-filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.photo-filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.photo-filter-btn:hover {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.photo-filter-btn.active {
+    background: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.photo-sort select {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.photo-sort select:hover,
+.photo-sort select:focus {
+    border-color: var(--secondary-color);
+}
+
+.all-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.all-photo-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    aspect-ratio: 3/2;
+    background: var(--bg-color);
+}
+
+.all-photo-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.all-photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-recipe-tooltip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    padding: 2rem 1rem 1rem;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.all-photo-item:hover .photo-recipe-tooltip {
+    opacity: 1;
+}
+
+.photo-recipe-tooltip .recipe-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.photo-recipe-tooltip .photo-caption {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.photo-like-indicator {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.photo-like-indicator.liked {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
 /* Instructions Page */
 .instructions-container {
     max-width: 1000px;
@@ -697,6 +838,20 @@ footer {
     .film-sim-grid,
     .exposure-grid {
         grid-template-columns: 1fr;
+    }
+
+    .all-photos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .all-photos-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .photo-filter-buttons {
+        justify-content: center;
     }
 
     .lightbox-nav {

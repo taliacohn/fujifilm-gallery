@@ -4,10 +4,16 @@ let currentFilter = 'all';
 let currentSearch = '';
 let currentLightboxRecipe = null;
 let currentLightboxIndex = 0;
+let allPhotos = []; // Flat array of all photos with recipe info
+let currentPhotoFilter = 'all';
+let currentPhotoSort = 'recipe';
+let lightboxMode = 'recipe'; // 'recipe' or 'allPhotos'
+let currentAllPhotosArray = []; // Current filtered/sorted array for All Photos view
 
 // Load recipes on page load
 document.addEventListener('DOMContentLoaded', async () => {
     await loadRecipes();
+    buildAllPhotosArray();
     setupEventListeners();
     displayRecipes();
 });
@@ -88,6 +94,21 @@ function setupEventListeners() {
             if (e.key === 'Escape') closeLightbox();
         }
     });
+
+    // All Photos page controls
+    document.querySelectorAll('.photo-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.photo-filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            currentPhotoFilter = e.target.dataset.photoFilter;
+            displayAllPhotos();
+        });
+    });
+
+    document.getElementById('photoSort')?.addEventListener('change', (e) => {
+        currentPhotoSort = e.target.value;
+        displayAllPhotos();
+    });
 }
 
 // Switch between pages
@@ -105,6 +126,11 @@ function switchPage(page) {
         content.classList.remove('active');
     });
     document.getElementById(`${page}Page`).classList.add('active');
+
+    // Load page-specific content
+    if (page === 'allPhotos') {
+        displayAllPhotos();
+    }
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -335,9 +361,26 @@ function closeModal() {
     document.getElementById('recipeModal').style.display = 'none';
 }
 
-// Open photo lightbox
+// Open photo lightbox (from recipe view)
 function openLightbox(recipe, photoIndex) {
+    lightboxMode = 'recipe';
     currentLightboxRecipe = recipe;
+    currentLightboxIndex = photoIndex;
+    
+    updateLightboxContent();
+    
+    const lightbox = document.getElementById('photoLightbox');
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    // Setup lightbox like button
+    const likeBtn = document.getElementById('lightboxLikeBtn');
+    likeBtn.onclick = () => toggleLightboxLike();
+}
+
+// Open photo lightbox (from all photos view)
+function openLightboxAllPhotos(photoIndex) {
+    lightboxMode = 'allPhotos';
     currentLightboxIndex = photoIndex;
     
     updateLightboxContent();
@@ -353,15 +396,31 @@ function openLightbox(recipe, photoIndex) {
 
 // Update lightbox content
 function updateLightboxContent() {
-    if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+    let photo, totalPhotos, recipeId, recipeName;
 
-    const photo = currentLightboxRecipe.photos[currentLightboxIndex];
-    const totalPhotos = currentLightboxRecipe.photos.length;
+    if (lightboxMode === 'allPhotos') {
+        // All Photos mode - navigate through all photos
+        if (!currentAllPhotosArray || currentAllPhotosArray.length === 0) return;
+        
+        const photoData = currentAllPhotosArray[currentLightboxIndex];
+        photo = photoData;
+        totalPhotos = currentAllPhotosArray.length;
+        recipeId = photoData.recipeId;
+        recipeName = photoData.recipeName;
+    } else {
+        // Recipe mode - navigate through recipe's photos
+        if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+        
+        photo = currentLightboxRecipe.photos[currentLightboxIndex];
+        totalPhotos = currentLightboxRecipe.photos.length;
+        recipeId = currentLightboxRecipe.id;
+        recipeName = currentLightboxRecipe.name;
+    }
 
     // Update image
     const img = document.getElementById('lightboxImage');
-    img.src = `photos/${currentLightboxRecipe.id}/${photo.filename}`;
-    img.alt = photo.caption || currentLightboxRecipe.name;
+    img.src = `photos/${recipeId}/${photo.filename}`;
+    img.alt = photo.caption || recipeName;
 
     // Update caption
     const caption = document.querySelector('.lightbox-caption');
@@ -401,10 +460,17 @@ function updateLightboxContent() {
 
 // Navigate lightbox
 function navigateLightbox(direction) {
-    if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
-
     const newIndex = currentLightboxIndex + direction;
-    if (newIndex >= 0 && newIndex < currentLightboxRecipe.photos.length) {
+    
+    let maxIndex;
+    if (lightboxMode === 'allPhotos') {
+        maxIndex = currentAllPhotosArray.length;
+    } else {
+        if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+        maxIndex = currentLightboxRecipe.photos.length;
+    }
+    
+    if (newIndex >= 0 && newIndex < maxIndex) {
         currentLightboxIndex = newIndex;
         updateLightboxContent();
     }
@@ -412,22 +478,38 @@ function navigateLightbox(direction) {
 
 // Toggle like in lightbox
 function toggleLightboxLike() {
-    if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+    let photo, recipeId, recipe;
 
-    const photo = currentLightboxRecipe.photos[currentLightboxIndex];
+    if (lightboxMode === 'allPhotos') {
+        const photoData = currentAllPhotosArray[currentLightboxIndex];
+        photo = photoData;
+        recipeId = photoData.recipeId;
+        recipe = photoData.recipe;
+    } else {
+        if (!currentLightboxRecipe || !currentLightboxRecipe.photos) return;
+        photo = currentLightboxRecipe.photos[currentLightboxIndex];
+        recipeId = currentLightboxRecipe.id;
+        recipe = currentLightboxRecipe;
+    }
+
     photo.liked = !photo.liked;
 
     // Save to localStorage
     const likes = JSON.parse(localStorage.getItem('recipeLikes') || '{}');
-    const key = `${currentLightboxRecipe.id}-${photo.filename}`;
+    const key = `${recipeId}-${photo.filename}`;
     likes[key] = photo.liked;
     localStorage.setItem('recipeLikes', JSON.stringify(likes));
 
     // Update lightbox like button
     updateLightboxContent();
 
-    // Refresh the recipe modal in the background
-    showRecipeModal(currentLightboxRecipe);
+    // Refresh views in the background
+    if (lightboxMode === 'allPhotos') {
+        buildAllPhotosArray();
+        displayAllPhotos();
+    } else {
+        showRecipeModal(recipe);
+    }
 
     // Refresh grid to update counts
     displayRecipes();
@@ -440,5 +522,80 @@ function closeLightbox() {
     document.body.style.overflow = ''; // Restore scrolling
     currentLightboxRecipe = null;
     currentLightboxIndex = 0;
+}
+
+// Build flat array of all photos
+function buildAllPhotosArray() {
+    allPhotos = [];
+    recipes.forEach(recipe => {
+        if (recipe.photos && recipe.photos.length > 0) {
+            recipe.photos.forEach((photo, index) => {
+                allPhotos.push({
+                    ...photo,
+                    recipe: recipe,
+                    recipeId: recipe.id,
+                    recipeName: recipe.name,
+                    photoIndex: index
+                });
+            });
+        }
+    });
+}
+
+// Display all photos grid
+function displayAllPhotos() {
+    const grid = document.getElementById('allPhotosGrid');
+    const noPhotosMsg = document.getElementById('noPhotosMessage');
+    
+    // Filter photos
+    let filteredPhotos = allPhotos.filter(photo => {
+        if (currentPhotoFilter === 'liked') {
+            return photo.liked;
+        }
+        return true; // 'all'
+    });
+
+    // Sort photos
+    if (currentPhotoSort === 'newest') {
+        filteredPhotos = [...filteredPhotos].reverse();
+    }
+    // 'recipe' sort is already the default order
+
+    // Store for lightbox navigation
+    currentAllPhotosArray = filteredPhotos;
+
+    if (filteredPhotos.length === 0) {
+        grid.style.display = 'none';
+        noPhotosMsg.style.display = 'block';
+        return;
+    }
+
+    grid.style.display = 'grid';
+    noPhotosMsg.style.display = 'none';
+
+    grid.innerHTML = filteredPhotos.map((photo, index) => createAllPhotoItem(photo, index)).join('');
+
+    // Add click listeners
+    grid.querySelectorAll('.all-photo-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const photoIndex = parseInt(item.dataset.photoIndex);
+            // Open lightbox in "all photos" mode
+            openLightboxAllPhotos(photoIndex);
+        });
+    });
+}
+
+// Create all photo item HTML
+function createAllPhotoItem(photo, index) {
+    return `
+        <div class="all-photo-item" data-photo-index="${index}">
+            <img src="photos/${photo.recipeId}/${photo.filename}" alt="${photo.caption || photo.recipeName}">
+            ${photo.liked ? '<div class="photo-like-indicator liked">❤️</div>' : ''}
+            <div class="photo-recipe-tooltip">
+                <div class="recipe-name">${photo.recipeName}</div>
+                ${photo.caption ? `<div class="photo-caption">${photo.caption}</div>` : ''}
+            </div>
+        </div>
+    `;
 }
 

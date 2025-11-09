@@ -22,6 +22,7 @@
         <div class="container">
             <div class="nav-tabs">
                 <button class="nav-tab active" data-page="gallery">Gallery</button>
+                <button class="nav-tab" data-page="allPhotos">All Photos</button>
                 <button class="nav-tab" data-page="instructions">Instructions & Guide</button>
             </div>
         </div>
@@ -58,23 +59,31 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Photo Lightbox -->
-            <div id="photoLightbox" class="lightbox">
-                <span class="lightbox-close">&times;</span>
-                <button class="lightbox-nav lightbox-prev">‹</button>
-                <button class="lightbox-nav lightbox-next">›</button>
-                <div class="lightbox-content">
-                    <img id="lightboxImage" src="" alt="">
-                    <div class="lightbox-info">
-                        <div class="lightbox-caption"></div>
-                        <div class="lightbox-tags"></div>
-                        <button class="lightbox-like-btn" id="lightboxLikeBtn">
-                            <span class="like-icon">🤍</span>
-                        </button>
+        <!-- All Photos Page -->
+        <div id="allPhotosPage" class="page-content">
+            <div class="all-photos-container">
+                <h2>All Photos</h2>
+                <div class="all-photos-controls">
+                    <div class="photo-filter-buttons">
+                        <button class="photo-filter-btn active" data-photo-filter="all">All Photos</button>
+                        <button class="photo-filter-btn" data-photo-filter="liked">Liked Only</button>
+                    </div>
+                    <div class="photo-sort">
+                        <select id="photoSort">
+                            <option value="recipe">Sort by Recipe</option>
+                            <option value="newest">Newest First</option>
+                        </select>
                     </div>
                 </div>
-                <div class="lightbox-counter"></div>
+                <div id="allPhotosGrid" class="all-photos-grid">
+                    <!-- Photos will be loaded here by JavaScript -->
+                </div>
+                <div id="noPhotosMessage" class="empty-state" style="display: none;">
+                    <h3>No photos yet!</h3>
+                    <p>Add photos to your recipes to see them here.</p>
+                </div>
             </div>
         </div>
 
@@ -372,6 +381,24 @@
             </div>
         </div>
     </main>
+
+    <!-- Photo Lightbox (outside page containers so it works on all tabs) -->
+    <div id="photoLightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <button class="lightbox-nav lightbox-prev">‹</button>
+        <button class="lightbox-nav lightbox-next">›</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-info">
+                <div class="lightbox-caption"></div>
+                <div class="lightbox-tags"></div>
+                <button class="lightbox-like-btn" id="lightboxLikeBtn">
+                    <span class="like-icon">🤍</span>
+                </button>
+            </div>
+        </div>
+        <div class="lightbox-counter"></div>
+    </div>
 
     <footer>
         <div class="container">
